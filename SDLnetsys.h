@@ -54,17 +54,23 @@ typedef int socklen_t;
 #ifdef __FreeBSD__
 #include <sys/socket.h>
 #endif
+#ifndef __vita__
 #include <sys/ioctl.h>
+#endif
 #include <sys/time.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <netinet/in.h>
+#ifndef __vita__
 #ifndef __BEOS__
 #include <arpa/inet.h>
 #endif
 #include <netinet/tcp.h>
+#endif
 #include <sys/socket.h>
+#ifndef __vita__
 #include <net/if.h>
+#endif
 #include <netdb.h>
 #endif /* WIN32 */
 
