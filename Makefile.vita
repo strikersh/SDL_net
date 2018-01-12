@@ -7,7 +7,7 @@ COMMON_OBJS = SDLnet.o \
 
 PREFIX  = arm-vita-eabi
 CC      = $(PREFIX)-gcc
-AR      = $(PREFIX)-gcc-ar
+AR      = $(PREFIX)-ar
 CFLAGS  = -Wl,-q -Wall -O3 -Iinclude -I$(VITASDK)/arm-vita-eabi/include/SDL2
 ASFLAGS = $(CFLAGS)
 
