@@ -33,6 +33,7 @@ void SDLNet_Vita_QuitNet(void);
 
 // These are missing from our newlib, so replacements are provided in
 // SDLnetvita.c.
+// REMOVE these after corresponding functions get added to Vita newlib.
 
 char *_vita_inet_ntoa(struct in_addr in);
 in_addr_t _vita_inet_addr(const char *cp);
@@ -53,7 +54,7 @@ struct hostent *_vita_gethostbyaddr(const void *addr, socklen_t len, int type);
 #define random rand
 #define srandom srand
 
-// Some potentially missing constants
+// Some potentially missing constants.
 
 #ifndef SOL_SOCKET
 #define SOL_SOCKET SCE_NET_SOL_SOCKET
@@ -72,4 +73,8 @@ struct hostent *_vita_gethostbyaddr(const void *addr, socklen_t len, int type);
 #undef ip_mreq
 #define ip_mreq SceNetIpMreq
 #define IP_ADD_MEMBERSHIP SCE_NET_IP_ADD_MEMBERSHIP
+#endif
+
+#ifndef TCP_NODELAY
+#define TCP_NODELAY SCE_NET_TCP_NODELAY
 #endif
