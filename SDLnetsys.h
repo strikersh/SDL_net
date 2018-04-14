@@ -58,9 +58,6 @@ typedef int socklen_t;
 #include <sys/ioctl.h>
 #endif
 #include <sys/time.h>
-#ifdef __vita__
-#include <sys/select.h>
-#endif
 #include <unistd.h>
 #include <fcntl.h>
 #include <netinet/in.h>
@@ -108,31 +105,5 @@ void SDLNet_SetLastError(int err);
 #endif
 
 #ifdef __vita__
-// These are all defined in SDLnetvita.c
-
-int SDLNet_Vita_InitNet(void);
-void SDLNet_Vita_QuitNet(void);
-
-// These are missing from our newlib, so replacements are provided in
-// SDLnetvita.c.
-
-char *_vita_inet_ntoa(struct in_addr in);
-in_addr_t _vita_inet_addr(const char *cp);
-struct hostent *_vita_gethostbyaddr(const void *addr, socklen_t len, int type);
-
-#undef inet_ntoa
-#undef inet_addr
-#undef gethostbyaddr
-#define inet_ntoa _vita_inet_ntoa
-#define inet_addr _vita_inet_addr
-#define gethostbyaddr _vita_gethostbyaddr
-
-// SDL2_net looks for these and uses them exactly as rand() and srand()
-// for some reason, and we don't have them in libc.
-
-#undef random
-#undef srandom
-#define random rand
-#define srandom srand
-
+#include "SDLnetvita.h"
 #endif
