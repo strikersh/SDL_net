@@ -106,53 +106,52 @@ void SDLNet_Vita_QuitNet(void)
 
 char *_vita_inet_ntoa(struct in_addr in)
 {
-  static char buf[32];
-  int ip;
-  ip = ntohl(in.s_addr);
-  snprintf(buf, sizeof(buf), "%d.%d.%d.%d",
-      (ip >> 24) & 0xff, (ip >> 16) & 0xff, (ip >> 8) & 0xff, ip & 0xff);
-  return buf;
+    static char buf[32];
+    SceNetInAddr addr;
+    addr.s_addr = in.s_addr;
+    sceNetInetNtop(SCE_NET_AF_INET, &addr, buf, sizeof(buf));
+    return buf;
 }
 
 in_addr_t _vita_inet_addr(const char *cp)
 {
-  int b1, b2, b3, b4;
-  int res;
-  res = sscanf(cp, "%d.%d.%d.%d", &b1, &b2, &b3, &b4);
-  if (res != 4) return (in_addr_t)(-1); // is actually expected behavior
-  return htonl((b1 << 24) | (b2 << 16) | (b3 << 8) | b4);
+    SceNetInAddr addr;
+    int res;
+    res = sceNetInetPton(SCE_NET_AF_INET, cp, &addr);
+    if (res <= 0) return (in_addr_t)(-1); // is actually expected behavior
+    return (in_addr_t)(addr.s_addr);
 }
 
 struct hostent *_vita_gethostbyaddr(const void *addr, socklen_t len, int type)
 {
-  static struct hostent ent;
-  static char sname[256];
-  static struct SceNetInAddr saddr;
-  static char *addrlist[2];
-  int rid, e;
+    static struct hostent ent;
+    static char sname[256];
+    static struct SceNetInAddr saddr;
+    static char *addrlist[2];
+    int rid, e;
 
-  addrlist[0] = (char *)&saddr;
-  addrlist[1] = NULL;
+    addrlist[0] = (char *)&saddr;
+    addrlist[1] = NULL;
 
-  if (type != AF_INET || len != sizeof(uint32_t)) return NULL;
+    if (type != AF_INET || len != sizeof(uint32_t)) return NULL;
 
-  rid = sceNetResolverCreate("sdlnet_resolv", NULL, 0);
-  if (rid < 0) return NULL;
+    rid = sceNetResolverCreate("sdlnet_resolv", NULL, 0);
+    if (rid < 0) return NULL;
 
-  memcpy(&saddr.s_addr, addr, sizeof(uint32_t));
+    memcpy(&saddr.s_addr, addr, sizeof(uint32_t));
 
-  e = sceNetResolverStartAton(rid, &saddr, sname, sizeof(sname), 0, 0, 0);
-  sceNetResolverDestroy(rid);
-  if (e < 0) return NULL;
+    e = sceNetResolverStartAton(rid, &saddr, sname, sizeof(sname), 0, 0, 0);
+    sceNetResolverDestroy(rid);
+    if (e < 0) return NULL;
 
-  ent.h_name = sname;
-  ent.h_aliases = 0;
-  ent.h_addrtype = AF_INET;
-  ent.h_length = sizeof(struct SceNetInAddr);
-  ent.h_addr_list = addrlist;
-  ent.h_addr = addrlist[0];
+    ent.h_name = sname;
+    ent.h_aliases = 0;
+    ent.h_addrtype = AF_INET;
+    ent.h_length = sizeof(struct SceNetInAddr);
+    ent.h_addr_list = addrlist;
+    ent.h_addr = addrlist[0];
 
-  return &ent;
+    return &ent;
 }
 
 #endif
