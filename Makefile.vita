@@ -3,12 +3,12 @@ COMMON_OBJS = SDLnet.o \
 	SDLnetselect.o \
 	SDLnetTCP.o \
 	SDLnetUDP.o \
-	showinterfaces.o
+	SDLnetvita.o
 
 PREFIX  = arm-vita-eabi
 CC      = $(PREFIX)-gcc
 AR      = $(PREFIX)-ar
-CFLAGS  = -Wl,-q -Wall -O3 -Iinclude -I$(VITASDK)/arm-vita-eabi/include/SDL2
+CFLAGS  = -Wl,-q -Wall -O3 -Iinclude -I$(VITASDK)/arm-vita-eabi/include/SDL2 -DTCP_NODELAY
 ASFLAGS = $(CFLAGS)
 
 LIBS    += -lSDL2

@@ -108,6 +108,10 @@ int  SDLNet_Init(void)
             SDLNet_SetError("Couldn't initialize IBM OS/2 sockets");
             return(-1);
         }
+#elif defined(__vita__)
+        extern int SDLNet_Vita_InitNet(void);
+        int ret = SDLNet_Vita_InitNet();
+        if (ret) return(-1);
 #else
         /* SIGPIPE is generated when a remote socket is closed */
         void (*handler)(int);
@@ -138,6 +142,9 @@ void SDLNet_Quit(void)
         }
 #elif defined(__OS2__) && !defined(__EMX__)
         /* -- nothing */
+#elif defined(__vita__)
+        extern void SDLNet_Vita_QuitNet(void);
+        SDLNet_Vita_QuitNet();
 #else
         /* Restore the SIGPIPE handler */
         void (*handler)(int);
