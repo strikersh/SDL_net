@@ -3,7 +3,7 @@ COMMON_OBJS = SDLnet.o \
 	SDLnetselect.o \
 	SDLnetTCP.o \
 	SDLnetUDP.o \
-	showinterfaces.o
+	SDLnetvita.o
 
 PREFIX  = arm-vita-eabi
 CC      = $(PREFIX)-gcc

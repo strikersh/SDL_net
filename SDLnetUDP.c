@@ -24,7 +24,7 @@
 #include "SDLnetsys.h"
 #include "SDL_net.h"
 
-#ifdef __WIN32__
+#if defined (__WIN32__) || defined(__vita__)
 #define srandom	srand
 #define random	rand
 #endif

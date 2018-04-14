@@ -98,3 +98,7 @@ int SDLNet_GetLastError(void);
 void SDLNet_SetLastError(int err);
 #endif
 
+#ifdef __vita__
+#include "SDLnetvita.h"
+#endif
+
