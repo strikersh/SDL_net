@@ -31,7 +31,8 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-#include <vitasdk.h>
+#include <psp2/sysmodule.h>
+#include <psp2/libnetctl.h>
 
 #define NET_INIT_SIZE (1 * 1024 * 1024)
 #ifndef SCE_NET_CTL_ERROR_NOT_TERMINATED

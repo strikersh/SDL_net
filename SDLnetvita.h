@@ -24,7 +24,6 @@
 #pragma once
 
 #include <sys/select.h>
-#include <vitasdk.h>
 
 // These are all defined in SDLnetvita.c
 
