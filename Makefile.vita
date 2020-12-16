@@ -5,10 +5,10 @@ COMMON_OBJS = SDLnet.o \
 	SDLnetUDP.o \
 	SDLnetvita.o
 
-PREFIX  = arm-vita-eabi
+PREFIX  = arm-dolce-eabi
 CC      = $(PREFIX)-gcc
 AR      = $(PREFIX)-ar
-CFLAGS  = -Wl,-q -Wall -O3 -Iinclude -I$(VITASDK)/arm-vita-eabi/include/SDL
+CFLAGS  = -Wl,-q -Wall -O3 -Iinclude -I$(DOLCESDK)/arm-dolce-eabi/include/SDL
 ASFLAGS = $(CFLAGS)
 
 LIBS    += -lSDL
@@ -20,8 +20,8 @@ clean:
 	@rm -rf $(TARGET_LIB) $(COMMON_OBJS)
 
 install: $(TARGET_LIB)
-	@cp  $(TARGET_LIB) $(VITASDK)/arm-vita-eabi/lib
-	@mkdir -p "$(VITASDK)/arm-vita-eabi/include/SDL"
-	@cp SDL_net.h "$(VITASDK)/arm-vita-eabi/include/SDL"
+	@cp  $(TARGET_LIB) $(DOLCESDK)/arm-dolce-eabi/lib
+	@mkdir -p "$(DOLCESDK)/arm-dolce-eabi/include/SDL"
+	@cp SDL_net.h "$(DOLCESDK)/arm-dolce-eabi/include/SDL"
 	@echo "Installed!"
 

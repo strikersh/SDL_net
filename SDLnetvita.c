@@ -30,6 +30,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <psp2/sysmodule.h>
 
 #include "SDL_net.h"
 #include "SDLnetvita.h"

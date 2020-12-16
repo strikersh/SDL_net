@@ -24,7 +24,7 @@
 #pragma once
 
 #include <sys/select.h>
-#include <vitasdk.h>
+#include <psp2/libnetctl.h>
 
 // These are all defined in SDLnetvita.c
 
